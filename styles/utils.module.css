@@ -1,0 +1,239 @@
+  @media (max-width: 767.98px) { 
+    .list_games_item_header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn_primary {
+      width: 100% !important;
+    }
+  
+    .btn_danger {
+      width: 100% !important;
+    }
+
+    .game_platinato {
+      width: 40% !important;
+    }
+  
+    .game_completato {
+      width: 40% !important;
+    }
+  
+    .game_normale {
+      width: 40% !important;
+    }
+  }
+  
+  .heading2Xl {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+  }
+  
+  .headingXl {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+  }
+  
+  .headingLg {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 1rem 0;
+  }
+  
+  .headingMd {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .borderCircle {
+    border-radius: 9999px;
+  }
+  
+  .colorInherit {
+    color: inherit;
+  }
+  
+  .padding1px {
+    padding-top: 1px;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .listItem {
+    margin: 0 0 1.25rem;
+  }
+  
+  .lightText {
+    color: #999;
+    padding: 5px;
+  }
+
+  .list_games_item {
+    max-width: 80vw;
+    background: white;
+    box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
+    padding: 20px;
+    list-style: none;
+  }
+
+  .list_games_filter {
+    width: 100%;
+    margin: 30px 0px;
+    border-radius: 15px;
+    padding: 11px;
+    border: none;
+    box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
+  }
+
+  .list_games_search {
+    width: 60%;
+    margin: 30px 0px;
+    border-radius: 15px;
+    padding: 11px;
+    border: none;
+    box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
+  }
+
+  .list_games_filter::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(201, 201, 201);
+    opacity: 1; /* Firefox */
+  }
+  
+  .list_games_filter:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(201, 201, 201);
+  }
+  
+  .list_games_filter::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(201, 201, 201);
+  }
+
+  .list_games_search::placeholder,
+  { 
+    color: rgb(201, 201, 201);
+    opacity: 1; /* Firefox */
+  }
+  
+  .list_games_search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(201, 201, 201);
+  }
+  
+  .list_games_search::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(201, 201, 201);
+  }
+
+  .list_games_item_header {
+    display: flex;
+    justify-content: around;
+  }
+
+  .list_games_item_header img {
+    margin-right: 10px;
+    max-height: 100%;
+  }
+
+  .list_games_item_body {
+    font-size: 32px;
+    font-weight: bold;
+    word-break: break-all;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .list_games_item_body small{
+    font-size: 16px;
+  }
+
+  .list_games_item_body a {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .list_games_item_body p {
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+  .list_games_item_body a:hover {
+    color: #0056b3;
+    text-decoration: none;
+  }
+
+  .game_platinato {
+    background: #ececec;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin: 5px 0px;
+    width: 60%;
+  }
+
+  .game_completato {
+    background: #61b136;
+    color: #325d1a;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    width: 60%;
+  }
+
+  .game_normale {
+    background: #0070f3;
+    color: #FFF;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    width: 60%;
+  }
+
+  .btn_primary {
+    box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);
+    margin-bottom: 10px;
+    width: 60%;
+  }
+
+  .btn_danger {
+    box-shadow: 0 4px 14px 0 #bd213091;
+    width: 60%;
+  }
+
+  .mt_auto {
+    margin-top: auto;
+  }
+
+  .add_games_container {
+    width: 100vw;
+    background: #ececec;
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .genres_label {
+    padding: 10px;
+    font-size: 14px;
+    background: #ececec;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: normal;
+  }
+
+  .body_modal input{
+    margin-bottom: 10px;
+  }
