@@ -21,7 +21,7 @@ export default function Login() {
     console.log("password", password);
     console.log("email", email);
     //call api
-     await axios.post('https://localhost:5001/api/users', {
+     await axios.post('https://gabrielenapoli.com/yume2/api/users', {
         Username: username,
         Password: password,
         Email: email
