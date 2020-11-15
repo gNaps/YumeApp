@@ -33,7 +33,7 @@ export default function ImageUploader() {
                 const username = cookie.get("user");
 
                 axios
-                .put(`https://localhost:5001/api/users/updateimage/${username}`, 
+                .put(`${process.env.API_URL}/updateimage/${username}`, 
                     {
                         User: {
                             id: parseInt(username)

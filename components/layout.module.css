@@ -20,6 +20,10 @@
   height: 8rem;
 }
 
+.headerPost {
+  margin-bottom: 15px;
+}
+
 .backToHome {
   margin: 3rem 0 0;
 }

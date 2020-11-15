@@ -1,6 +1,6 @@
 import Layout from '../../components/layout'
 import Head from 'next/head'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import axios from 'axios'
 import { useRouter } from "next/router"
 import utilStyles from '../../styles/utils.module.css'
@@ -15,12 +15,7 @@ export function ListGamesToAdd () {
   const { search } = r.query;
   console.log(search);
 
-  /* console.log(id);
-  console.log(`https://localhost:5001/api/game/` + id);
-  let xx = `https://localhost:5001/api/game/` + id.toString();
-  console.log(xx, "xx")*/
-
-   const fetcher = url => axios.post(`https://localhost:5001/api/game`, {
+   const fetcher = url => axios.post(`${process.env.API_URL}/game`, {
     Name: search
   },{
   headers: {
@@ -32,7 +27,7 @@ export function ListGamesToAdd () {
 
   if(data == undefined) 
     return (
-      <div>loading...</div>
+      <div class="lds-ripple"><div></div><div></div></div>
       )
   else 
     return(
@@ -55,18 +50,18 @@ export function ListGamesToAdd () {
         
         <li className={`${utilStyles.listItem} ${utilStyles.list_games_item}`} key={x.id}>
          <div className={utilStyles.list_games_item_header}>
-            <img src={'https:' + x.cover.url.replace('t_thumb', 't_cover_big')}></img> 
+            {x.cover && <img src={'https:' + x.cover.url.replace('t_thumb', 't_cover_big')}></img>}
             <div className={utilStyles.list_games_item_body}>
               <Link href={`/game/${x.id}`}>
               <a>{x.name}</a>
               </Link>
               <div>
-                {x.genres.map((g) => (
+                {x.genres && x.genres.map((g) => (
                   <span className={utilStyles.genres_label}>{g.name}</span>
                 ))}
               </div>
-              {x.summary.length <= 500 && <small className={utilStyles.lightText}>{x.summary.substring(0, 500)}</small>}
-              {x.summary.length > 500 && <small className={utilStyles.lightText}>{x.summary.substring(0, 500)}...</small>}
+              {x.summary && x.summary.length <= 500 && <small className={utilStyles.lightText}>{x.summary.substring(0, 500)}</small>}
+              {x.summary && x.summary.length > 500 && <small className={utilStyles.lightText}>{x.summary.substring(0, 500)}...</small>}
               <AddGame id={x.id}></AddGame>
            </div>
          </div>
@@ -93,12 +88,13 @@ export function AddGame(id) {
       "OrderToPlay": 0
     }
 
-    axios.post(`https://localhost:5001/api/usersvideogame`, game,{
+    axios.post(`${process.env.API_URL}/usersvideogame`, game,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {
       console.log("risposta di aggiunta", res);
       setShow(true);    
+      mutate('/api/listUserGame');
     });
   };
 

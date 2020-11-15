@@ -3,7 +3,7 @@ import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import axios from 'axios'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import { useRouter } from 'next/router'
 import cookie from 'js-cookie';
 import { Button, Modal, Form, Col } from 'react-bootstrap';
@@ -12,7 +12,8 @@ import { useState } from "react";
 
 export function ListGames(){
   //CHIAMATA API PER LETTURA DELLA LISTA
-  const fetcher = url => axios.get('https://localhost:5001/api/usersvideogame/', {
+  console.log("yoyo", process.env)
+  const fetcher = url => axios.get(`https://gabrielenapoli.com/yume2/api/usersvideogame/`, {
   headers: {
     authorization: 'Bearer ' + cookie.get('jwt'),
   }}).then(res => res.data);
@@ -35,8 +36,12 @@ export function ListGames(){
   //GESTIONE MODALE PER MODIFICA LISTA
   const [showModal, setShowModal] = useState(false);
   const [modalObject, setModalObject] = React.useState({userVideogameLabel: [], usersVideogame:[], gameIgdb: {}});
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [indexObjectDelete, setIndexObjectDelete] = useState(0);
+  const [modalObjectDelete, setModalObjectDelete] = React.useState({userVideogameLabel: [], usersVideogame:[], gameIgdb: {}});
 
   const handleCloseModal = () => setShowModal(false);
+  const handleCloseModalDelete = () => setShowModalDelete(false);
   const handleChangePlatinum = (game, event) => {
     console.log("yoyo", game.usersVideogame.platinum);
     //game.usersVideogame.platinum  = !game.usersVideogame.platinum;
@@ -53,13 +58,13 @@ export function ListGames(){
   const handleSaveModal = (gameToSave) => {
     console.log("oggetto da salvare", gameToSave);
 
-    axios.put(`https://localhost:5001/api/usersvideogame/${gameToSave.usersVideogame.Id}`, gameToSave.usersVideogame,{
+    axios.put(`https://gabrielenapoli.com/yume2/api/usersvideogame/${gameToSave.usersVideogame.Id}`, gameToSave.usersVideogame,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {
       console.log("risposta di modifica ai check", res);
       gameToSave.userVideogameLabel.forEach((element) => {
-        axios.put(`https://localhost:5001/api/uservideogamelabel/${element.Id}`, element,{
+        axios.put(`https://gabrielenapoli.com/yume2/api/uservideogamelabel/${element.Id}`, element,{
         headers: {
           authorization: 'Bearer ' + cookie.get('jwt'),
         }}).then(res => {
@@ -68,7 +73,7 @@ export function ListGames(){
       })
 
       if(gameToSave.newLabel.label){
-        axios.post(`https://localhost:5001/api/uservideogamelabel/`, gameToSave.newLabel,{
+        axios.post(`https://gabrielenapoli.com/yume2/api/uservideogamelabel/`, gameToSave.newLabel,{
         headers: {
           authorization: 'Bearer ' + cookie.get('jwt'),
         }}).then(res => {
@@ -76,17 +81,37 @@ export function ListGames(){
         });
       }
     }).then(() => {
+      mutate('/api/listUserGame');
       setShowModal(false);    
     });
   }
 
-  const handleDeleteGame = (gameToDelete) => {
+  const handleShowModalDelete = (gameToDelete, index) => {
     console.log("gioco da eliminare", gameToDelete);
+    setModalObjectDelete(gameToDelete);
+    setIndexObjectDelete(index);
+    setShowModalDelete(true);
+  }
+
+  const deleteGame = (game, index) => {
+    console.log("elimino", game.usersVideogame.id)
+    console.log("index", index)
+    axios.delete(`https://gabrielenapoli.com/yume2/api/usersvideogame/${game.usersVideogame.id}`,{
+    headers: {
+      authorization: 'Bearer ' + cookie.get('jwt'),
+    }}).then(res => {
+      console.log("risposta di modifica ai check", res);
+      if(res.status == 200){
+        setShowModalDelete(false);  
+        //mutate('/api/listUserGame', data => ({ ...data, items: [ ...data.slice(0, index), index < data.length - 1 && data.slice(index + 1) ] }), false)
+        mutate('/api/listUserGame');
+      }
+    });
   }
   
   if(data == undefined) 
     return (
-      <div>loading...</div>
+      <div class="lds-ripple" style={{marginTop: '50px'}}><div></div><div></div></div>
       )
   else {
     return(
@@ -98,7 +123,7 @@ export function ListGames(){
        onChange={handleChange}
        className={utilStyles.list_games_filter}
      />
-      {results.map((x) => (
+      {results.map((x, index) => (
          <li className={`${utilStyles.listItem} ${utilStyles.list_games_item}`} key={x.usersVideogame.id}>
           <div className={utilStyles.list_games_item_header}>
               <img src={'https:' + x.gameIgdb.cover.url.replace('t_thumb', 't_cover_big')}></img> 
@@ -120,7 +145,7 @@ export function ListGames(){
                 </Button>
                 <Button variant="danger" type="submit" 
                   className={utilStyles.btn_danger}
-                  onClick={() => handleDeleteGame(x)}>
+                  onClick={() => handleShowModalDelete(x, index)}>
                     Delete
                 </Button>
               </div>
@@ -204,7 +229,27 @@ export function ListGames(){
                   Save Changes
                 </Button>
               </Modal.Footer>
-            </Modal>          
+            </Modal>   
+
+
+        <Modal show={showModalDelete} onHide={handleCloseModalDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Remove {modalObjectDelete.gameIgdb.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Do you want to remove this game from your list?</p>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModalDelete}>
+              No
+            </Button>
+            <Button variant="primary" onClick={() => {
+              deleteGame(modalObjectDelete, indexObjectDelete)
+            }}>
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>       
 
      </div>
    )

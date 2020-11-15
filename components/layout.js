@@ -10,7 +10,7 @@ export const siteTitle = 'Yume'
 
 
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, post }) {
   
 
   /* const handleChangeImage = () => {
@@ -19,6 +19,13 @@ export default function Layout({ children, home }) {
       setImage(localStorage.getItem('imageProfile'))
     }, [])
   } */
+
+  const [image, setImage] = React.useState('');
+    if(typeof window !== 'undefined') {
+        React.useEffect(() => {
+        setImage(localStorage.getItem('imageProfile'))
+        }, [])
+    }
 
   return (
     <div className={styles.container}>
@@ -56,20 +63,15 @@ export default function Layout({ children, home }) {
           </>
         ) : (
           <>
-            <Link href="/">
-              <a>
+            {post &&
+            <div className={utilStyles.headerPost}>
                 <img
-                  src="/images/profile.jpg"
+                  src={image}
                   className={`${styles.headerImage} ${utilStyles.borderCircle}`}
                   alt={name}
                 />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
+            </div>
+            }
           </>
         )}
       </header>
