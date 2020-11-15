@@ -15,7 +15,7 @@ export function ListGamesToAdd () {
   const { search } = r.query;
   console.log(search);
 
-   const fetcher = url => axios.post(`${process.env.API_URL}/game`, {
+   const fetcher = url => axios.post(`https://gabrielenapoli.com/yume2/api/game`, {
     Name: search
   },{
   headers: {
