@@ -88,7 +88,7 @@ export function AddGame(id) {
       "OrderToPlay": 0
     }
 
-    axios.post(`https://gabrielenapoli.com/yume2/api/game`/usersvideogame`, game,{
+    axios.post(`https://gabrielenapoli.com/yume2/api/game/usersvideogame`, game,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {
