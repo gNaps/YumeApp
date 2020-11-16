@@ -12,8 +12,8 @@ import { useState } from "react";
 
 export function ListGames(){
   //CHIAMATA API PER LETTURA DELLA LISTA
-  console.log("yoyo", process.env)
-  const fetcher = url => axios.get(`https://gabrielenapoli.com/yume2/api/usersvideogame/`, {
+  console.log("yoyo", process.env.NEXT_PUBLIC_API_URL)
+  const fetcher = url => axios.get(`${process.env.NEXT_PUBLIC_API_URL}/usersvideogame/`, {
   headers: {
     authorization: 'Bearer ' + cookie.get('jwt'),
   }}).then(res => res.data);
@@ -58,13 +58,13 @@ export function ListGames(){
   const handleSaveModal = (gameToSave) => {
     console.log("oggetto da salvare", gameToSave);
 
-    axios.put(`https://gabrielenapoli.com/yume2/api/usersvideogame/${gameToSave.usersVideogame.Id}`, gameToSave.usersVideogame,{
+    axios.put(`${process.env.NEXT_PUBLIC_API_URL}/usersvideogame/${gameToSave.usersVideogame.Id}`, gameToSave.usersVideogame,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {
       console.log("risposta di modifica ai check", res);
       gameToSave.userVideogameLabel.forEach((element) => {
-        axios.put(`https://gabrielenapoli.com/yume2/api/uservideogamelabel/${element.Id}`, element,{
+        axios.put(`${process.env.NEXT_PUBLIC_API_URL}/uservideogamelabel/${element.Id}`, element,{
         headers: {
           authorization: 'Bearer ' + cookie.get('jwt'),
         }}).then(res => {
@@ -73,7 +73,7 @@ export function ListGames(){
       })
 
       if(gameToSave.newLabel.label){
-        axios.post(`https://gabrielenapoli.com/yume2/api/uservideogamelabel/`, gameToSave.newLabel,{
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}/uservideogamelabel/`, gameToSave.newLabel,{
         headers: {
           authorization: 'Bearer ' + cookie.get('jwt'),
         }}).then(res => {
@@ -96,7 +96,7 @@ export function ListGames(){
   const deleteGame = (game, index) => {
     console.log("elimino", game.usersVideogame.id)
     console.log("index", index)
-    axios.delete(`https://gabrielenapoli.com/yume2/api/usersvideogame/${game.usersVideogame.id}`,{
+    axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/usersvideogame/${game.usersVideogame.id}`,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {

@@ -8,7 +8,9 @@ export default function ImageUploader() {
     const [image, setImage] = React.useState('');
     if(typeof window !== 'undefined') {
         React.useEffect(() => {
-        setImage(localStorage.getItem('imageProfile'))
+            if(localStorage.getItem('imageProfile')) {
+                setImage(localStorage.getItem('imageProfile'))
+            }
         }, [])
     }
 
@@ -33,7 +35,7 @@ export default function ImageUploader() {
                 const username = cookie.get("user");
 
                 axios
-                .put(`${process.env.API_URL}/updateimage/${username}`, 
+                .put(`${process.env.NEXT_PUBLIC_API_URL}/users/updateimage/${username}`, 
                     {
                         User: {
                             id: parseInt(username)

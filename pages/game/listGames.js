@@ -15,7 +15,7 @@ export function ListGamesToAdd () {
   const { search } = r.query;
   console.log(search);
 
-   const fetcher = url => axios.post(`https://gabrielenapoli.com/yume2/api/game`, {
+   const fetcher = url => axios.post(`${process.env.NEXT_PUBLIC_API_URL}/game`, {
     Name: search
   },{
   headers: {
@@ -90,7 +90,7 @@ export function AddGame(id) {
 
     console.log("jwt", cookie.get('jwt'))
 
-    axios.post(`https://gabrielenapoli.com/yume2/api/usersvideogame`, game,{
+    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/usersvideogame`, game,{
     headers: {
       authorization: 'Bearer ' + cookie.get('jwt'),
     }}).then(res => {

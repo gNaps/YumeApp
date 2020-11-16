@@ -18,7 +18,7 @@ export default function Login() {
     console.log("username", username);
     console.log("password", password);
     //call api
-    await axios.post('https://gabrielenapoli.com/yume2/api/login', {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
         Username: username,
         Password: password
         }
@@ -30,7 +30,8 @@ export default function Login() {
         cookie.set("username", username);
         cookie.set("user", response.data.id);
         //cookie.set("imageProfile", "data:image/png;base64," + response.data.image);
-        localStorage.setItem("imageProfile", "data:image/png;base64," + response.data.image);
+        if(response.data.image) localStorage.setItem("imageProfile", "data:image/png;base64," + response.data.image);
+        else localStorage.removeItem("imageProfile");
         Router.push('/');
       }, (error) => {
         console.log(error);

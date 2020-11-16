@@ -21,7 +21,7 @@ export default function Login() {
     console.log("password", password);
     console.log("email", email);
     //call api
-     await axios.post('https://gabrielenapoli.com/yume2/api/users', {
+     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         Username: username,
         Password: password,
         Email: email
@@ -56,7 +56,7 @@ export default function Login() {
             crossorigin="anonymous"
             />
             </Head>
-            <Form onSubmit={handleSubmit} className={styles.sign_in_container_form}>
+            {!signInSuccess && <Form onSubmit={handleSubmit} className={styles.sign_in_container_form}>
                 <h3>Enter credentials and register an account.</h3>
                     <Form.Group controlId="formGridUsername">
                         <Form.Label>Username</Form.Label>
@@ -94,9 +94,15 @@ export default function Login() {
                 <Link href="/login">
                     <a>Have an account yet? Please login</a>
                 </Link>
-            </Form>
+            </Form>}
             <Alert show={signInError} variant="danger">{signInErrorMessage}</Alert>
-            <Alert show={signInSuccess} variant="success">Il tuo utente è stato creato!</Alert>
+            <Alert show={signInSuccess} variant="success">
+                Your account has been created!
+                <br />
+                <Link href="/login">
+                    <a>Please return to login.</a>
+                </Link>
+            </Alert>
         </div>
     </div>
   );

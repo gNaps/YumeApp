@@ -23,7 +23,7 @@ export function Game () {
     )
   } 
 
-  const fetcher = url => axios.get(`https://gabrielenapoli.com/yume2/api/game/${id.toString()}`, {
+  const fetcher = url => axios.get(`${process.env.NEXT_PUBLIC_API_URL}/game/${id.toString()}`, {
   headers: {
     authorization: 'Bearer ' +  cookie.get('jwt'),
   }}).then(res => res.data);
