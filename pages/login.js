@@ -57,7 +57,7 @@ export default function Login() {
             />
         </Head>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <svg width="90vw" height="250px" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="90vw" height="200px" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <text id="UME" font-family="Futura-Bold, Futura" font-size="97.5" font-weight="bold" fill="#FFF">
                         <tspan x="178" y="201">UME</tspan>
