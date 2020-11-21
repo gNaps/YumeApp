@@ -28,8 +28,8 @@ export default function ImageUploader() {
             var image = base64data.replace('data:image/png;base64,', '')
             var height = this.height;
             var width = this.width;
-            if (height > 500 || width > 500) {
-                alert("Height and Width must not exceed 100px.");
+            if (height > 2000 || width > 2000) {
+                alert("Height and Width must not exceed 2000px.");
                 e.target.files = [];
             } else {
                 const username = cookie.get("user");

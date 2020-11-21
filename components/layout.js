@@ -6,6 +6,7 @@ import cookie from 'js-cookie';
 import ImageUploader from './imageUploader'
 
 const name = cookie.get("username");
+console.log("setto il name", cookie.get("username"))
 export const siteTitle = 'Yume'
 
 
