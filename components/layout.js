@@ -28,7 +28,7 @@ export default function Layout({ children, home, post }) {
     }
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -59,7 +59,7 @@ export default function Layout({ children, home, post }) {
         {home ? (
           <>
             <ImageUploader></ImageUploader>
-            <h1 className={utilStyles.heading2Xl}>Hi {name}</h1>
+            <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
         ) : (
           <>
@@ -75,6 +75,7 @@ export default function Layout({ children, home, post }) {
           </>
         )}
       </header>
+      <div className={styles.container}>
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
@@ -84,5 +85,6 @@ export default function Layout({ children, home, post }) {
         </div>
       )}
     </div>
+    </>
   )
 }

@@ -56,44 +56,40 @@ export default function Login() {
             crossorigin="anonymous"
             />
         </Head>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <svg width="90vw" height="200px" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <text id="UME" font-family="Futura-Bold, Futura" font-size="97.5" font-weight="bold" fill="#FFF">
-                        <tspan x="178" y="201">UME</tspan>
-                    </text>
-                    <path d="M172.369841,126.9825 L173.08,126.9825 L172.754997,127.58912 L220,202 L60,202 L106.763844,128.346946 L106,126.9825 L107.630159,126.9825 L140,76 L172.369841,126.9825 Z M172.369841,126.9825 L152.8,126.9825 L139.8325,152.625 L126.475,126.9825 L107.630159,126.9825 L106.763844,128.346946 L130.18,170.175 L113.1175,201.96 L132.91,201.96 L172.754997,127.58912 L172.369841,126.9825 Z" id="Combined-Shape" fill="#FFF" fill-rule="nonzero"></path>
-                </g>
-            </svg>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px'}}>
+                <img src="https://www.gabrielenapoli.com/res/logo_yume_w.png"  style={{width: '60%'}}/>
             </div>
-            <Form onSubmit={handleSubmit} className={styles.sign_in_container_form}>
-                <h3>Welcome to Yume, please login</h3>
-                <Form.Group controlId="formGridUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control 
-                        placeholder="Username" 
-                        name="username"
-                        type="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group controlId="formGridPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control 
-                        type="password" 
-                        placeholder="Password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </Form.Group>
-                <Button variant="primary" type="submit" className={styles.btn_primary}>
-                    Login
-                </Button>
-                <Link href="/signin">
-                    <a>Don't have account? Sign in!</a>
-                </Link>
-            </Form>
+            <div>
+                <Form onSubmit={handleSubmit} className={styles.sign_in_container_form}>
+                    <h3>Welcome to Yume, please login</h3>
+                    <Form.Group controlId="formGridUsername">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control 
+                            placeholder="Username" 
+                            name="username"
+                            type="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formGridPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control 
+                            type="password" 
+                            placeholder="Password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" className={styles.btn_primary}>
+                        Login
+                    </Button>
+                    <Link href="/signin">
+                        <a>Don't have account? Sign in!</a>
+                    </Link>
+                </Form>
+                <div></div>
+            </div>
         </div>
     </div>
   );

@@ -1,13 +1,14 @@
 .container {
   max-width: 36rem;
   padding: 0 1rem;
-  margin: 3rem auto 6rem;
+  margin: 0 auto 6rem;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 
 .headerImage {
@@ -33,8 +34,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background: #0070f3;
+    padding: 20px;
 }
 
 .sign_in_container_form {

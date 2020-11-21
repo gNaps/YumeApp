@@ -6,11 +6,12 @@ import axios from 'axios'
 import useSWR, { mutate } from 'swr'
 import { useRouter } from 'next/router'
 import cookie from 'js-cookie';
-import { Button, Modal, Form, Col } from 'react-bootstrap';
+import { Button, Modal, Form, Col, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import { useState } from "react";
 
 
-export function ListGames(){
+export function ListGames({findNumberGames}){
+
   //CHIAMATA API PER LETTURA DELLA LISTA
   console.log("yoyo", process.env.NEXT_PUBLIC_API_URL)
   const fetcher = url => axios.get(`${process.env.NEXT_PUBLIC_API_URL}/usersvideogame/`, {
@@ -27,11 +28,36 @@ export function ListGames(){
     setSearchTerm(event.target.value);
   };
 
-  const results = !searchTerm
+  const [filterButton, setFilterButton] = useState([]);
+  const handleChangeFilterButton = (val) => {
+    console.log("filtro", val);
+    setFilterButton(val);
+  }
+
+  let results = !searchTerm
     ? data
     : data.filter(x =>
         x.gameIgdb.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
       );
+  
+  let tempResults = [];
+  console.log(filterButton)
+  if(filterButton && filterButton.length > 0) {
+    if(filterButton.includes(1)) {
+      tempResults = tempResults.concat(results.filter(item => item.usersVideogame.platinum == true));
+    }
+    if(filterButton.includes(2)) {
+      tempResults = tempResults.concat(results.filter(item => item.usersVideogame.finish == true && item.usersVideogame.platinum == false));
+    }
+    if(filterButton.includes(3)) {
+      tempResults = tempResults.concat(results.filter(item => item.usersVideogame.orderToPlay !== 0));
+    }
+    if(filterButton.includes(4)) {
+      tempResults = tempResults.concat(results.filter(item => item.usersVideogame.wishlist == true));
+    }
+    results = tempResults;
+  }
+
 
   //GESTIONE MODALE PER MODIFICA LISTA
   const [showModal, setShowModal] = useState(false);
@@ -114,40 +140,104 @@ export function ListGames(){
       <div class="lds-ripple" style={{marginTop: '50px'}}><div></div><div></div></div>
       )
   else {
+    const numberGames = {
+      numberPlatinum: data.filter((item) => { return item.usersVideogame.platinum === true}).length,
+      numberFinish: data.filter((item) => { return item.usersVideogame.finish === true}).length,
+      numberToPlay: data.filter((item) => { return item.usersVideogame.orderToPlay !== 0}).length,
+      numberToBuy: data.filter((item) => { return item.usersVideogame.wishlist === true}).length,
+      numberTotal: data.length
+    }
+    findNumberGames(numberGames)
     return(
       <div> 
-      <input
-       type="text"
-       placeholder="filter gamelist"
-       value={searchTerm}
-       onChange={handleChange}
-       className={utilStyles.list_games_filter}
-     />
+      {data.length != 0 && 
+        <>
+          <input
+          type="text"
+          placeholder="filter gamelist"
+          value={searchTerm}
+          onChange={handleChange}
+          className={utilStyles.list_games_filter}
+          />
+          <div className={utilStyles.games_filter_type}>
+          <ToggleButtonGroup type="checkbox" value={filterButton} onChange={handleChangeFilterButton}>
+            <ToggleButton variant="light" value={1}>Platinum</ToggleButton>
+            <ToggleButton variant="light" value={2}>Finish</ToggleButton>
+            <ToggleButton variant="light" value={3}>In game</ToggleButton>
+            <ToggleButton variant="light" value={4}>To Buy</ToggleButton>
+          </ToggleButtonGroup>
+          </div>
+        </>
+      }
+     {data.length == 0 && <h3 style={{padding: '50px', color: '#afafaf'}}>Seems you haven't games yet. Use the research to add once.</h3>}
       {results.map((x, index) => (
          <li className={`${utilStyles.listItem} ${utilStyles.list_games_item}`} key={x.usersVideogame.id}>
           <div className={utilStyles.list_games_item_header}>
-              <img src={'https:' + x.gameIgdb.cover.url.replace('t_thumb', 't_cover_big')}></img> 
+            <div style={{width: '100%', height: '200px', 
+            backgroundImage: 'url(https:' + x.gameIgdb.cover.url.replace('t_thumb', 't_1080p') + ')', 
+            backgroundSize: 'cover', backgroundPosition: 'center'}} />
               <div className={utilStyles.list_games_item_body}>
                 <Link href={`/game/${x.gameIgdb.id}`}>
                   <a>{x.gameIgdb.name}</a>
                 </Link>
-                {x.usersVideogame.platinum == 1 && <small className={utilStyles.game_platinato}>Platinum</small>}
-                {x.usersVideogame.finish && <small className={utilStyles.game_completato}>Finish</small>}
-                {x.usersVideogame.orderToPlay != 0 && <small className={utilStyles.game_normale}>Priority {x.usersVideogame.orderToPlay}</small>}
-                {x.usersVideogame.wishlist && <small className={utilStyles.game_normale}>In wishlist</small>}
+                {x.usersVideogame.platinum == 1 && 
+                  <div className={`${utilStyles.badge} ${utilStyles.badge_platinato}`}>
+                    <div className={utilStyles.badge_icon}>
+                      <i class="fas fa-trophy"></i>
+                    </div>
+                    <div className={utilStyles.badge_text}>
+                      <p>Platinum</p>
+                    </div>
+                  </div>
+                }
+                {x.usersVideogame.finish && !x.usersVideogame.platinum &&
+                   <div className={`${utilStyles.badge} ${utilStyles.badge_completato}`}>
+                    <div className={utilStyles.badge_icon}>
+                    <i class="fas fa-award"></i>
+                    </div>
+                    <div className={utilStyles.badge_text}>
+                      <p>Finish</p>
+                    </div>
+                  </div>
+                }
+                {x.usersVideogame.orderToPlay != 0 && 
+                  <div className={`${utilStyles.badge} ${utilStyles.badge_normale}`}>
+                    <div className={utilStyles.badge_icon}>
+                    <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div className={utilStyles.badge_text}>
+                      <p>Priority {x.usersVideogame.orderToPlay}</p>
+                    </div>
+                  </div>
+                }
+                {x.usersVideogame.wishlist && 
+                  <div className={`${utilStyles.badge} ${utilStyles.badge_normale}`}>
+                  <div className={utilStyles.badge_icon}>
+                  <i class="fas fa-shopping-basket"></i>
+                  </div>
+                  <div className={utilStyles.badge_text}>
+                    <p>In Wishlist</p>
+                  </div>
+                </div>
+                }
                 {x.userVideogameLabel.map((y) => (
-                  <p id={y.id}>{y.label}</p>
+                  <p id={y.id}>{y.label}</p> 
                 ))}
+                { x.userVideogameLabel.length == 0 && <p className={utilStyles.placeholder_label}>
+                    Add a label to mark, highlight or remind you of game information
+                  </p> }
+                <div className={utilStyles.game_button}>
                 <Button variant="primary" type="submit" 
                   className={`${utilStyles.btn_primary} ${utilStyles.mt_auto}`} 
                   onClick={() => handleShowModal(x)}>
                   Update
                 </Button>
-                <Button variant="danger" type="submit" 
+                <Button type="submit" 
                   className={utilStyles.btn_danger}
                   onClick={() => handleShowModalDelete(x, index)}>
                     Delete
                 </Button>
+                </div>
               </div>
             </div>
           </li>
@@ -305,7 +395,22 @@ export default function Home() {
       if(!tokenJwt) {
         r.push('/login');
       }
-    }, [])
+    }, []);
+
+    const [numberGamesPlatinum, setNumberGamesPlatinum] = useState();
+    const [numberGamesFinish, setNumberGamesFinish] = useState();
+    const [numberGamesToPlay, setNumberGamesToPlay] = useState();
+    const [numberGamesToBuy, setNumberGamesToBuy] = useState();
+    const [numberGamesTotal, setNumberGamesTotal] = useState();
+
+    const handleCallback = (childData) =>{
+      console.log("childData", childData)
+      setNumberGamesPlatinum(childData.numberPlatinum);
+      setNumberGamesFinish(childData.numberFinish);
+      setNumberGamesToPlay(childData.numberToPlay);
+      setNumberGamesToBuy(childData.numberToBuy);
+      setNumberGamesTotal(childData.numberTotal);
+    }
   
   return (
     <Layout home>
@@ -313,27 +418,23 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>This is your gamelist</p>
+      {numberGamesTotal && <h5 style={{fontWeight: '200'}}>you have {numberGamesTotal} games in your list.</h5>}
+      <div style={{padding: '10px'}}>
+        {numberGamesPlatinum ? <span style={{margin: '5px'}}><i class="fas fa-trophy"></i>{numberGamesPlatinum}</span> 
+          : <span style={{margin: '5px'}}><i class="fas fa-trophy"></i>0</span>}
+        {numberGamesFinish ? <span style={{margin: '5px'}}><i class="fas fa-award"></i>{numberGamesFinish}</span>
+          : <span style={{margin: '5px'}}><i class="fas fa-award"></i>0</span> }
+        {numberGamesToPlay ? <span style={{margin: '5px'}}><i class="fas fa-gamepad"></i>{numberGamesToPlay}</span>
+          : <span style={{margin: '5px'}}><i class="fas fa-gamepad"></i>0</span> }
+        {numberGamesToBuy ? <span style={{margin: '5px'}}><i class="fas fa-shopping-basket"></i>{numberGamesToBuy}</span>
+          : <span style={{margin: '5px'}}><i class="fas fa-shopping-basket"></i>0</span> }
+      </div>
       <AddGames></AddGames>
-      <ListGames></ListGames>
+      <ListGames findNumberGames={(numberGames) => handleCallback(numberGames)}></ListGames>
       </section>
-      {/* <section className={utilStyles.headingMd}>…</section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-        </ul>
-      </section> 
-      https://images.igdb.com/igdb/image/upload/t_cover_big/co1x78.jpg*/}
-    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <svg width="250px" height="150px" viewBox="0 0 500 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <text id="UME" font-family="Futura-Bold, Futura" font-size="97.5" font-weight="bold" fill="#000">
-                        <tspan x="178" y="201">UME</tspan>
-                    </text>
-                    <path d="M172.369841,126.9825 L173.08,126.9825 L172.754997,127.58912 L220,202 L60,202 L106.763844,128.346946 L106,126.9825 L107.630159,126.9825 L140,76 L172.369841,126.9825 Z M172.369841,126.9825 L152.8,126.9825 L139.8325,152.625 L126.475,126.9825 L107.630159,126.9825 L106.763844,128.346946 L130.18,170.175 L113.1175,201.96 L132.91,201.96 L172.754997,127.58912 L172.369841,126.9825 Z" id="Combined-Shape" fill="#000" fill-rule="nonzero"></path>
-                </g>
-        </svg>
-        </div>
+      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <img src="https://www.gabrielenapoli.com/res/logo_yume_b.png"  style={{width: '60%'}}/>
+      </div>
     </Layout>
   )
 }

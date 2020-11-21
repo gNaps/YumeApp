@@ -1,28 +1,24 @@
   @media (max-width: 767.98px) { 
-    .list_games_item_header {
+    .game_button {
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
     }
 
     .btn_primary {
+      box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);
+      margin-bottom: 10px !important;
+      margin-right: 0px !important;
       width: 100% !important;
     }
-  
+
     .btn_danger {
       width: 100% !important;
     }
 
-    .game_platinato {
-      width: 40% !important;
-    }
-  
-    .game_completato {
-      width: 40% !important;
-    }
-  
-    .game_normale {
-      width: 40% !important;
+    .list_games_search {
+      width: 80vw !important;
     }
   }
   
@@ -31,7 +27,7 @@
     line-height: 1.2;
     font-weight: 800;
     letter-spacing: -0.05rem;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
   }
   
   .headingXl {
@@ -87,7 +83,6 @@
     max-width: 80vw;
     background: white;
     box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
-    padding: 20px;
     list-style: none;
   }
 
@@ -101,7 +96,7 @@
   }
 
   .list_games_search {
-    width: 60%;
+    width: 50vw;
     margin: 30px 0px;
     border-radius: 15px;
     padding: 11px;
@@ -138,7 +133,8 @@
 
   .list_games_item_header {
     display: flex;
-    justify-content: around;
+    flex-direction: column;
+    align-items: center;
   }
 
   .list_games_item_header img {
@@ -153,6 +149,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 20px;
   }
 
   .list_games_item_body small{
@@ -165,7 +162,7 @@
   }
 
   .list_games_item_body p {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal;
   }
 
@@ -174,41 +171,68 @@
     text-decoration: none;
   }
 
-  .game_platinato {
+  .badge {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    min-width: 150px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .badge_platinato {
     background: #ececec;
-    border-radius: 5px;
-    padding-left: 10px;
-    margin: 5px 0px;
-    width: 60%;
+    color: #a9a7a7;
   }
 
-  .game_completato {
-    background: #61b136;
-    color: #325d1a;
-    border-radius: 5px;
-    padding-left: 10px;
-    margin-bottom: 5px;
-    width: 60%;
+  .badge_completato {
+    background: #81c784;
+    color: #519657;
   }
 
-  .game_normale {
-    background: #0070f3;
-    color: #FFF;
-    border-radius: 5px;
-    padding-left: 10px;
-    margin-bottom: 5px;
-    width: 60%;
+  .badge_normale {
+    background: #bbdefb;
+    color: #8aacc8;
+  }
+
+  .badge_icon {
+    min-width: 50px;
+    padding: 0 10px;
+  }
+
+  .badge_text p {
+    margin: 0;
+  }
+
+  .placeholder_label {
+    color: #a7a0a0;
+    font-size: 18px !important;
+  }
+
+  .game_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .btn_primary {
     box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);
-    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
     width: 60%;
   }
 
   .btn_danger {
-    box-shadow: 0 4px 14px 0 #bd213091;
+    box-shadow: 0 4px 14px 0 #00000091;
     width: 60%;
+    background-color: #000;
+    border-color: #000;
+  }
+
+  .btn_danger:hover,
+  .btn_danger:focus  {
+    background-color: #000;
+    border-color: #000;
   }
 
   .mt_auto {
@@ -216,7 +240,7 @@
   }
 
   .add_games_container {
-    width: 100vw;
+    width: 90vw;
     background: #ececec;
     display: flex;
     justify-content: center;
@@ -257,3 +281,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .games_filter_type {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  

@@ -61,18 +61,18 @@ export default function ImageUploader() {
 
   return (
     <>
-        {image && <div style={{ width: '150px', borderRadius: '75px',
-            height: '150px',  backgroundImage: 'url('+image+')', 
+        {image && <div style={{ width: '100px', borderRadius: '50px',
+            height: '100px',  backgroundImage: 'url('+image+')', 
             backgroundPosition: 'center', backgroundSize: 'contain'}} onClick={triggerUpload}></div>}
 
         {!image && 
-            <div style={{ width: '150px', borderRadius: '75px',
-            height: '150px',  backgroundColor: '#e2e2e2', display: 'flex', 
+            <div style={{ width: '100px', borderRadius: '50px',
+            height: '100px',  backgroundColor: '#e2e2e2', display: 'flex', 
             justifyContent: 'center', alignItems: 'center', color: 'white'}} onClick={triggerUpload}>
                 <i class="fas fa-user fa-4x"></i>
             </div>}
 
-          <input type='file' id='uploader_profile_pic' style={{ visibility: 'hidden' }}
+          <input type='file' id='uploader_profile_pic' style={{ visibility: 'hidden', width: '0px' }}
           onChange={fileUploader}/>
     </>
   );

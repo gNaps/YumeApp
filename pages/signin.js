@@ -41,7 +41,6 @@ export default function Login() {
 
   return (
     <div id="ciao" className={styles.sign_in_container}>
-        <div id="ciao2" className={styles.container}>
             <Head>
             <link rel="icon" href="/favicon.ico" />
             <meta
@@ -56,6 +55,9 @@ export default function Login() {
             crossorigin="anonymous"
             />
             </Head>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px'}}>
+                <img src="https://www.gabrielenapoli.com/res/logo_yume_w.png"  style={{width: '60%'}}/>
+            </div>
             {!signInSuccess && <Form onSubmit={handleSubmit} className={styles.sign_in_container_form}>
                 <h3>Enter credentials and register an account.</h3>
                     <Form.Group controlId="formGridUsername">
@@ -103,7 +105,6 @@ export default function Login() {
                     <a>Please return to login.</a>
                 </Link>
             </Alert>
-        </div>
     </div>
   );
 };
