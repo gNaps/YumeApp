@@ -160,7 +160,7 @@ export function ListGames({findNumberGames}){
           className={utilStyles.list_games_filter}
           />
           <div className={utilStyles.games_filter_type}>
-          <ToggleButtonGroup type="checkbox" value={filterButton} onChange={handleChangeFilterButton}>
+          <ToggleButtonGroup type="checkbox" value={filterButton} onChange={handleChangeFilterButton} style={{width: '100%'}}>
             <ToggleButton variant="light" value={1}><i class="fas fa-trophy"></i></ToggleButton>
             <ToggleButton variant="light" value={2}><i class="fas fa-award"></i></ToggleButton>
             <ToggleButton variant="light" value={3}><i class="fas fa-gamepad"></i></ToggleButton>
