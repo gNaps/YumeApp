@@ -149,7 +149,7 @@ export function ListGames({findNumberGames}){
     }
     findNumberGames(numberGames)
     return(
-      <div> 
+      <> 
       {data.length != 0 && 
         <>
           <input
@@ -161,10 +161,10 @@ export function ListGames({findNumberGames}){
           />
           <div className={utilStyles.games_filter_type}>
           <ToggleButtonGroup type="checkbox" value={filterButton} onChange={handleChangeFilterButton}>
-            <ToggleButton variant="light" value={1}>Platinum</ToggleButton>
-            <ToggleButton variant="light" value={2}>Finish</ToggleButton>
-            <ToggleButton variant="light" value={3}>In game</ToggleButton>
-            <ToggleButton variant="light" value={4}>To Buy</ToggleButton>
+            <ToggleButton variant="light" value={1}><i class="fas fa-trophy"></i></ToggleButton>
+            <ToggleButton variant="light" value={2}><i class="fas fa-award"></i></ToggleButton>
+            <ToggleButton variant="light" value={3}><i class="fas fa-gamepad"></i></ToggleButton>
+            <ToggleButton variant="light" value={4}><i class="fas fa-shopping-basket"></i></ToggleButton>
           </ToggleButtonGroup>
           </div>
         </>
@@ -341,7 +341,7 @@ export function ListGames({findNumberGames}){
           </Modal.Footer>
         </Modal>       
 
-     </div>
+     </>
    )
   }
 }
