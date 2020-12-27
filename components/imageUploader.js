@@ -61,19 +61,35 @@ export default function ImageUploader() {
 
   return (
     <>
-        {image && <div style={{ width: '100px', borderRadius: '50px',
-            height: '100px',  backgroundImage: 'url('+image+')', 
-            backgroundPosition: 'center', backgroundSize: 'contain'}} onClick={triggerUpload}></div>}
+        {image && 
+            <div>
+                <div 
+                style={{ width: '100px', borderRadius: '50px',
+                        height: '100px',  backgroundImage: 'url('+image+')', 
+                        backgroundPosition: 'center', backgroundSize: 'contain'}} 
+                onClick={triggerUpload} />
+                <input 
+                    type='file' 
+                    id='uploader_profile_pic' 
+                    style={{ display: 'none', width: '0px' }}
+                    onClick={fileUploader} /> 
+            </div>
+            }
 
         {!image && 
-            <div style={{ width: '100px', borderRadius: '50px',
-            height: '100px',  backgroundColor: '#e2e2e2', display: 'flex', 
-            justifyContent: 'center', alignItems: 'center', color: 'white'}} onClick={triggerUpload}>
-                <i class="fas fa-user fa-4x"></i>
-            </div>}
-
-          <input type='file' id='uploader_profile_pic' style={{ visibility: 'hidden', width: '0px' }}
-          onChange={fileUploader}/>
+            <div>
+                <div style={{ width: '100px', borderRadius: '50px',
+                height: '100px',  backgroundColor: '#e2e2e2', display: 'flex', 
+                justifyContent: 'center', alignItems: 'center', color: 'white'}} onClick={triggerUpload}>
+                    <i class="fas fa-user fa-4x" />
+                </div>
+                <input 
+                    type='file' 
+                    id='uploader_profile_pic' 
+                    style={{ display: 'none', width: '0px' }}
+                    onClick={fileUploader} /> 
+            </div>
+        }
     </>
   );
 }

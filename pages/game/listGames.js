@@ -15,7 +15,7 @@ export function ListGamesToAdd () {
   const { search } = r.query;
   console.log(search);
 
-   const fetcher = url => axios.post(`${process.env.NEXT_PUBLIC_API_URL}/game`, {
+  const fetcher = url => axios.post(`${process.env.NEXT_PUBLIC_API_URL}/game`, {
     Name: search
   },{
   headers: {
@@ -34,20 +34,7 @@ export function ListGamesToAdd () {
       <div>
         <h1>Results for {search}</h1>
         <p>{data.length} items find.</p>
-      {data.map((x) => (
-
-
-
-        // <li className={utilStyles.listItem} key={x.id}>
-        // <a>{x.name}</a>
-        // <br />
-        // <small className={utilStyles.lightText}>
-        //   qui c'era la data
-        //   {JSON.stringify(x)}
-        // </small>
-        // <AddGame id={x.id}></AddGame>
-        // </li>
-        
+        {data.map((x) => (        
         <li className={`${utilStyles.listItem} ${utilStyles.list_games_item}`} key={x.id}>
          <div className={utilStyles.list_games_item_header}>
             {x.cover && <img src={'https:' + x.cover.url.replace('t_thumb', 't_cover_big')}></img>}

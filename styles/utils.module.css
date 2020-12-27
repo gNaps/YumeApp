@@ -17,6 +17,12 @@
       width: 100% !important;
     }
 
+    .btn_danger_progress {
+      margin-right: 0px !important;
+      margin-bottom: 10px;
+      width: 100% !important;
+    }
+
     .list_games_search {
       width: 80vw !important;
     } 
@@ -94,48 +100,63 @@
 
   .list_games_filter {
     width: 100%;
-    margin: 30px 0px;
+    margin-bottom: 30px;
     border-radius: 15px;
-    padding: 11px;
+    padding: 15px 20px;
     border: none;
     box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
+    background: url('/search-icon.svg') no-repeat scroll;
+    background-position: 90%;
+    background-color: white;
   }
 
   .list_games_search {
     width: 50vw;
     margin: 30px 0px;
-    border-radius: 15px;
+    border-radius: 15px 0px 0px 15px;
     padding: 11px;
     border: none;
-    box-shadow: 0 15px 25px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 10px 11px 0 rgba(220,220,220,0.50);
+  }
+
+  .list_games_search_button {
+    padding: 11px;
+    border: none;
+    border-radius: 0px 15px 15px 0px;
+    background: #037bfe;
+    padding-right: 20px;
+    color: #FFF;
+    box-shadow: 0 10px 11px 0 rgba(220,220,220,0.50);
   }
 
   .list_games_filter::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: rgb(201, 201, 201);
+    color: #EBEBEB;
     opacity: 1; /* Firefox */
+    font-style: italic;
   }
   
   .list_games_filter:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: rgb(201, 201, 201);
+    color: #EBEBEB;
+    font-style: italic;
   }
   
   .list_games_filter::-ms-input-placeholder { /* Microsoft Edge */
-    color: rgb(201, 201, 201);
+    color: #EBEBEB;
+    font-style: italic;
   }
 
   .list_games_search::placeholder,
   { 
-    color: rgb(201, 201, 201);
+    color: #EBEBEB;
     opacity: 1; /* Firefox */
+    font-style: italic;
   }
   
   .list_games_search:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: rgb(201, 201, 201);
+    color: #EBEBEB;
+    font-style: italic;
   }
   
-  .list_games_search::-ms-input-placeholder { /* Microsoft Edge */
-    color: rgb(201, 201, 201);
-  }
 
   .list_games_item_header {
     display: flex;
@@ -235,6 +256,21 @@
     border-color: #000;
   }
 
+  .btn_danger_progress {
+    box-shadow: 0 4px 14px 0 #00000091;
+    width: 60%;
+    background-color: #000;
+    border-color: #000;
+    margin-right: 10px;
+  }
+
+  .btn_danger_progress a,
+  .btn_danger_progress a:hover {
+    font-size: 18px !important;
+    font-weight: normal;
+    color: white;
+  }
+
   .btn_danger:hover,
   .btn_danger:focus  {
     background-color: #000;
@@ -256,7 +292,7 @@
   }
 
   .genres_label {
-    padding: 10px;
+    padding: 10px 5px;
     font-size: 14px;
     background: #ececec;
     border-radius: 5px;
@@ -290,8 +326,60 @@
 
   .games_filter_type {
     display: flex;
-    justify-content: center;
     padding: 20px;
     width: 80vw;
+  }
+
+  .games_filter_type_item {
+    color: #C0C0C0;
+    padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .games_filter_type_item_active {
+    background: #ECECEC;
+    color: #C0C0C0;
+    padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .games_possible_trophies {
+    width: 80vw;
+    display: flex;
+    margin-bottom: 10px;
+    background-color: #ececec;
+    border-radius: 10px;
+  }
+
+  .games_possible_trophies_img {
+    min-width: 40%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  .games_possible_trophies_body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .games_possible_trophies_descr {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .games_possible_trophies_descr_earned {
+    background: #4caf50;
+    color: #087f23;
+    border-radius: 0px 10px 10px 0px;
   }
   

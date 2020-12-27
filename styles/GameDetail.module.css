@@ -1,0 +1,76 @@
+.game_detail_container {
+    font-family: 'Poppins';
+}
+
+.head_text {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.summary {
+    padding-top: 20px;
+}
+
+.info_users_game {
+    padding: 15px 20px;
+    background-color: #4F7AE1;
+    margin-left: -1em;
+    width: 100vw;
+}
+
+.info_users_game .row {
+    display: flex;
+    color: #FFFAFF;
+    justify-content: space-evenly;
+}
+
+.info_users_game .row div input{
+   margin-right: 5px;
+}
+
+.label {
+    color: #FFFAFF;
+    margin-top: 5px;
+}
+
+.btn_remove {
+    background: #D8315B;
+    font-size: 16px;
+    color: #FFFAFF;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.btn_trophies {
+    background: #006FCD;
+    font-size: 16px;
+    color: #FFFAFF;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.btn_save_changes {
+    background: #1E1B18;
+    font-size: 16px;
+    color: #FFFAFF;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.btn_add {
+    background: #31D8A9;
+    font-size: 16px;
+    color: #FFFAFF;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.info_users_game_controller {
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-evenly;
+}

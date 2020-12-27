@@ -1,26 +1,17 @@
 import Head from 'next/head'
-import styles from './layout.module.css'
+import styles from '../styles/layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import cookie from 'js-cookie';
 import ImageUploader from './imageUploader'
+import NavBar from '../components/NavBar'
 
 const name = cookie.get("username");
 console.log("setto il name", cookie.get("username"))
 export const siteTitle = 'Yume'
 
-
-
-export default function Layout({ children, home, post }) {
+export default function Layout({ children, home, post, numberGamesPlatinum, numberGamesFinish, numberGamesToPlay, numberGamesToBuy }) {
   
-
-  /* const handleChangeImage = () => {
-    console.log("change del componente figlio")
-    React.useEffect(() => {
-      setImage(localStorage.getItem('imageProfile'))
-    }, [])
-  } */
-
   const [image, setImage] = React.useState('');
     if(typeof window !== 'undefined') {
         React.useEffect(() => {
@@ -36,46 +27,94 @@ export default function Layout({ children, home, post }) {
           name="description"
           content="An application for videogamers"
         />
-        <meta
-          property="og:image"
-          content={`https://og-image.now.sh/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-        crossorigin="anonymous"
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous"
         />
         <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;800&display=swap" />
+        <title>{siteTitle}</title>
       </Head>
-      <header className={styles.header}>
+      <NavBar />
+      {<header className={styles.header}>
         {home ? (
-          <>
-            <ImageUploader></ImageUploader>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
+          <div className={styles.header_item}>
+            <div className={styles.header_image}>
+              <ImageUploader />
+            </div>
+            <div className={styles.header_stats}>
+              <h1 className={styles.heading2Xl}>{name}</h1>
+              {
+                numberGamesPlatinum ? (
+                  <span>
+                    <i class="fas fa-trophy"></i>
+                    {numberGamesPlatinum}
+                  </span> 
+                ) : (
+                  <span>
+                    <i class="fas fa-trophy"></i>0
+                  </span>
+                )
+              }
+              {
+                numberGamesFinish ? (
+                  <span>
+                    <i class="fas fa-award"></i>
+                    {numberGamesFinish}
+                  </span> 
+                ) : (
+                  <span>
+                    <i class="fas fa-award"></i>0
+                  </span>
+                )
+              }
+              {
+                numberGamesToPlay ? (
+                  <span>
+                    <i class="fas fa-gamepad"></i>
+                    {numberGamesToPlay}
+                  </span> 
+                ) : (
+                  <span>
+                    <i class="fas fa-gamepad"></i>0
+                  </span>
+                )
+              }
+              {
+                numberGamesToBuy ? (
+                  <span>
+                    <i class="fas fa-shopping-cart"></i>
+                    {numberGamesToBuy}
+                  </span> 
+                ) : (
+                  <span>
+                    <i class="fas fa-shopping-cart"></i>0
+                  </span>
+                )
+              }
+            </div>
+          </div>
         ) : (
           <>
             {post &&
-            <div className={utilStyles.headerPost}>
-                <img
-                  src={image}
-                  className={`${styles.headerImage} ${utilStyles.borderCircle}`}
-                  alt={name}
-                />
-            </div>
+              <div className={utilStyles.headerPost}>
+                  <img
+                    src={image}
+                    className={`${styles.headerImage} ${utilStyles.borderCircle}`}
+                    alt={name}
+                  />
+              </div>
             }
           </>
         )}
-      </header>
+      </header>}
       <div className={styles.container}>
       <main>{children}</main>
       {!home && (
@@ -84,7 +123,7 @@ export default function Layout({ children, home, post }) {
             <a>← Back to home</a>
           </Link>
         </div>
-      )}
+      )} 
     </div>
     </>
   )
